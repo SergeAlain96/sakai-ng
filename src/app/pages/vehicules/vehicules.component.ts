@@ -208,7 +208,7 @@ import { LoadingSpinnerComponent } from '../../core/components/loading-spinner.c
 
     .vehicules-page { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; animation: slideUp 0.6s ease-out; }
     .header { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; }
-    .header h2 { margin:0; font-size:1.875rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .header h2 { margin:0; font-size:1.875rem; background: linear-gradient(135deg, #0D5C3F 0%, #8B0000 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .header p { margin:.25rem 0 0; color: var(--text-color-secondary, #666); }
 
     .card { background: var(--surface-card, #fff); border-radius: 1rem; padding: 1rem; box-shadow: 0 8px 30px rgba(0,0,0,.06); }

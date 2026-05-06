@@ -157,7 +157,7 @@ import { LoadingSpinnerComponent } from '../../core/components/loading-spinner.c
     .header h2 {
       margin: 0;
       font-size: 1.875rem;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #0D5C3F 0%, #8B0000 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -178,7 +178,7 @@ import { LoadingSpinnerComponent } from '../../core/components/loading-spinner.c
     .direction-badge {
       display: inline-flex;
       padding: 0.5rem 0.75rem;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #0D5C3F 0%, #8B0000 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -211,7 +211,7 @@ import { LoadingSpinnerComponent } from '../../core/components/loading-spinner.c
       font-size: 0.95rem;
     }
     .form-group input:focus {
-      border-color: #667eea;
+      border-color: #0D5C3F;
       outline: none;
     }
     .error-message {

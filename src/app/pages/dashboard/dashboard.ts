@@ -11,9 +11,9 @@ import { RouterModule } from '@angular/router';
             <div class="carfo-hero rounded-3xl p-8 md:p-10">
                 <div class="relative z-10 max-w-3xl">
                     <span class="carfo-chip carfo-chip--light mb-4">CARFO · Missions</span>
-                    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">Pilotage des missions, des agents et des véhicules</h1>
+                    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4 text-white">Pilotage des missions, des agents et des véhicules</h1>
                     <p class="text-white/85 text-base md:text-lg max-w-2xl">
-                        Une interface centrée sur les opérations de mission, conçue pour s'adapter aux couleurs du logo CARFO dès que tu l'ajoutes.
+                        Interface centralisée pour gérer vos missions, agent, véhicules et absences avec les couleurs officielles de CARFO.
                     </p>
                 </div>
             </div>

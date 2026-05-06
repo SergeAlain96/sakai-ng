@@ -230,7 +230,7 @@ import { Vehicule, VehiculeService } from '../../core/services/vehicule.service'
   styles: [`
     .missions-page { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; animation: slideUp 0.6s ease-out; }
     .header { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; margin-bottom:1rem; }
-    .header h2 { margin:0; font-size: 1.875rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .header h2 { margin:0; font-size: 1.875rem; background: linear-gradient(135deg, #0D5C3F 0%, #8B0000 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .header p { margin:.25rem 0 0; color: var(--text-color-secondary, #666); }
     .card { background: var(--surface-card, #fff); border-radius: 1rem; padding: 1.5rem; box-shadow: 0 8px 30px rgba(0,0,0,.06); border: 1px solid rgba(226, 232, 240, 0.5); }
     .card h3 { margin-top: 0; color: #1e293b; }
@@ -251,8 +251,8 @@ import { Vehicule, VehiculeService } from '../../core/services/vehicule.service'
     .affectation-hints ul { margin: 0; padding-left: 1.25rem; }
     .affectation-hints li { color: #92400e; }
     .justify-start { justify-content:flex-start; }
-    .location-badge { background: #eff6ff; color: #0369a1; padding: 0.25rem 0.5rem; border-radius: 0.375rem; font-size: 0.875rem; }
-    .date-badge { background: #f5f3ff; color: #6b21a8; padding: 0.25rem 0.5rem; border-radius: 0.375rem; font-size: 0.875rem; }
+    .location-badge { background: #e8f5e9; color: #0D5C3F; padding: 0.25rem 0.5rem; border-radius: 0.375rem; font-size: 0.875rem; }
+    .date-badge { background: #fff8f0; color: #8B0000; padding: 0.25rem 0.5rem; border-radius: 0.375rem; font-size: 0.875rem; }
     .mission-row { transition: all 0.2s ease; }
     .mission-row:hover { background-color: #f8fafc; }
 

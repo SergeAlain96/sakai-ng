@@ -267,7 +267,7 @@ import { DirectionService, Direction } from '../../core/services/direction.servi
 
     .header-section h2 {
       margin: 0;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #0D5C3F 0%, #8B0000 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;

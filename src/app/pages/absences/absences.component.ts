@@ -141,7 +141,7 @@ import { LoadingSpinnerComponent } from '../../core/components/loading-spinner.c
     }
     .absences-page { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; animation: slideUp 0.6s ease-out; }
     .header { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; }
-    .header h2 { margin:0; font-size:1.875rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .header h2 { margin: 0; font-size: 1.875rem; background: linear-gradient(135deg, #0D5C3F 0%, #8B0000 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .header p { margin:.25rem 0 0; color: var(--text-color-secondary, #666); }
     .card { background: var(--surface-card, #fff); border-radius: 1rem; padding: 1rem; box-shadow: 0 8px 30px rgba(0,0,0,.06); }
     .filters .grid, .dialog-grid { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
@@ -151,11 +151,11 @@ import { LoadingSpinnerComponent } from '../../core/components/loading-spinner.c
     .empty-message { text-align:center; padding: 2rem 1.5rem; color: var(--text-color-secondary); font-size: 1rem; }
     .full { grid-column: 1 / -1; }
     .table-row:hover { background-color: var(--highlight-bg, #f8f9fa); }
-    .date-badge { display:inline-flex; align-items:center; padding:.35rem .65rem; background:#f5f3ff; color:#764ba2; border-radius:.5rem; font-size:.875rem; font-weight:500; }
+    .date-badge { display:inline-flex; align-items:center; padding:.35rem .65rem; background:#fff8f0; color:#8B0000; border-radius:.5rem; font-size:.875rem; font-weight:500; }
     .status-badge { display:inline-flex; padding:.35rem .65rem; border-radius:9999px; font-size:.78rem; font-weight:700; }
-    .status-en_attente, .status-planifiee { background:#fef3c7; color:#92400e; }
-    .status-approuve, .status-terminee, .status-completee { background:#dcfce7; color:#166534; }
-    .status-rejetee, .status-annulee { background:#fee2e2; color:#991b1b; }
+    .status-en_attente, .status-planifiee { background:#e8f5e9; color:#0D5C3F; }
+    .status-approuve, .status-terminee, .status-completee { background:#d4af37; color:#0D5C3F; font-weight: 700; }
+    .status-rejetee, .status-annulee { background:#ffe8e8; color:#8B0000; }
     .status-en_cours { background:#dbeafe; color:#1e40af; }
     @media (max-width: 768px) {
       .filters .grid, .dialog-grid { grid-template-columns: 1fr; }
