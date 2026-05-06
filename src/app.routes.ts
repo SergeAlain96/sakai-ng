@@ -5,6 +5,7 @@ import { MissionsComponent } from './app/pages/missions/missions.component';
 import { AbsencesComponent } from './app/pages/absences/absences.component';
 import { DirectionsComponent } from './app/pages/directions/directions.component';
 import { AgentsComponent } from './app/pages/agents/agents.component';
+import { VehiculesComponent } from './app/pages/vehicules/vehicules.component';
 import { LoginComponent } from './app/pages/auth/login/login.component';
 import { Register } from './app/pages/auth/register';
 import { authGuard, roleGuard } from './app/core/guards/auth.guard';
@@ -32,7 +33,7 @@ export const appRoutes: Routes = [
                 component: AgentsComponent,
                 canActivate: [roleGuard(['ADMINISTRATEUR', 'CHARGE_ETUDE'])]
             },
-            { path: 'vehicules', component: DashboardComponent },
+            { path: 'vehicules', component: VehiculesComponent },
             { path: 'absences', component: AbsencesComponent },
             {
                 path: 'directions',
