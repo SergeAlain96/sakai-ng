@@ -4,15 +4,16 @@ import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { ChartModule } from 'primeng/chart';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { firstValueFrom } from 'rxjs';
 import { DashboardService, DashboardStats, UpcomingMissions } from '../../core/services/dashboard.service';
+import { LoadingSpinnerComponent } from '../../core/components/loading-spinner.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, CardModule, TableModule, ButtonModule, ChartModule, ProgressSpinnerModule, ToastModule],
+  imports: [CommonModule, CardModule, TableModule, ButtonModule, ChartModule, ToastModule, LoadingSpinnerComponent],
   providers: [MessageService],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
@@ -27,8 +28,8 @@ export class DashboardComponent implements OnInit {
   directionsChart: any;
 
   constructor(
-    private dashboardService: DashboardService,
-    private messageService: MessageService
+    private readonly dashboardService: DashboardService,
+    private readonly messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -39,8 +40,8 @@ export class DashboardComponent implements OnInit {
     this.loading = true;
 
     Promise.all([
-      this.dashboardService.getAnnualStats().toPromise(),
-      this.dashboardService.getUpcomingMissions().toPromise()
+      firstValueFrom(this.dashboardService.getAnnualStats()),
+      firstValueFrom(this.dashboardService.getUpcomingMissions())
     ])
       .then(([stats, missions]) => {
         this.stats = stats || null;

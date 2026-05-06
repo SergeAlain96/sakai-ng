@@ -1,170 +1,162 @@
 .dashboard-page {
-  padding: 2rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
-  .header {
-    margin-bottom: 2rem;
+  .hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-radius: 1.25rem;
+    background: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 100%);
+    color: #fff;
+    box-shadow: 0 20px 45px rgba(102, 126, 234, 0.24);
+
+    .eyebrow {
+      margin: 0 0 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.75rem;
+      opacity: 0.9;
+    }
 
     h2 {
-      margin: 0 0 0.5rem 0;
+      margin: 0;
       font-size: 2rem;
-      font-weight: 600;
     }
 
     p {
-      margin: 0;
-      color: #666;
+      margin: 0.5rem 0 0;
+      opacity: 0.95;
+    }
+
+    .hero-badge {
+      padding: 0.75rem 1rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-weight: 600;
+      white-space: nowrap;
     }
   }
 
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
 
     .stat-card {
       :deep(.p-card-body) {
-        padding: 2rem;
+        padding: 0;
       }
 
       .stat-content {
-        text-align: center;
-
-        .stat-value {
-          font-size: 2.5rem;
-          font-weight: bold;
-          color: #673ab7;
-        }
-
-        .stat-label {
-          margin-top: 0.5rem;
-          color: #999;
-          font-size: 0.9rem;
-        }
-      }
-    }
-  }
-
-  .top-performers {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-
-    .performer-card {
-      :deep(.p-card-header) {
-        background: #f5f5f5;
-        padding: 1rem;
-
-        h3 {
-          margin: 0;
-          font-size: 1rem;
-          font-weight: 600;
-        }
-      }
-
-      .performer-content {
         padding: 1.5rem;
         text-align: center;
+      }
 
-        .performer-name {
-          font-size: 1.5rem;
-          font-weight: 600;
-          margin-bottom: 0.5rem;
-        }
+      .stat-icon {
+        font-size: 1.75rem;
+        margin-bottom: 0.35rem;
+      }
 
-        .performer-stat {
-          color: #673ab7;
-          font-weight: 500;
-        }
+      .stat-value {
+        font-size: 2.25rem;
+        font-weight: 800;
+        color: #1f2937;
+      }
+
+      .stat-label {
+        margin-top: 0.35rem;
+        color: #6b7280;
+        font-size: 0.95rem;
       }
     }
   }
 
+  .top-performers,
   .charts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+  }
 
-    p-card {
-      :deep(.p-card-header) {
-        background: #f5f5f5;
-        padding: 1rem;
+  .performer-card,
+  .missions-card {
+    :deep(.p-card-header) {
+      padding: 1rem 1rem 0;
 
-        h3 {
-          margin: 0;
-          font-size: 1rem;
-          font-weight: 600;
-        }
+      h3 {
+        margin: 0;
+        font-size: 1.05rem;
       }
     }
   }
 
-  .loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
+  .performer-content {
+    padding: 0.5rem 1rem 1rem;
+    text-align: center;
   }
 
-  .status-prevue {
-    background: #fff3cd;
-    color: #856404;
-    padding: 0.25rem 0.75rem;
-    border-radius: 3px;
-    font-size: 0.85rem;
+  .performer-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
   }
 
-  .status-initiee {
-    background: #d1ecf1;
-    color: #0c5460;
-    padding: 0.25rem 0.75rem;
-    border-radius: 3px;
-    font-size: 0.85rem;
+  .performer-stat {
+    color: #667eea;
+    font-weight: 600;
   }
 
-  .status-annulee {
-    background: #f8d7da;
-    color: #721c24;
-    padding: 0.25rem 0.75rem;
-    border-radius: 3px;
-    font-size: 0.85rem;
+  .empty-state {
+    text-align: center;
+    color: #6b7280;
+    padding: 1rem 0.5rem;
   }
 
-  .status-cloturee {
-    background: #d4edda;
-    color: #155724;
-    padding: 0.25rem 0.75rem;
-    border-radius: 3px;
-    font-size: 0.85rem;
+  .modern-table {
+    .status-pill {
+      display: inline-flex;
+      padding: 0.35rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .status-prevue {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .status-initiee {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+
+    .status-annulee {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .status-cloturee {
+      background: #d4edda;
+      color: #155724;
+    }
   }
 
   @media (max-width: 768px) {
     padding: 1rem;
 
-    .header {
+    .hero {
+      flex-direction: column;
+
       h2 {
         font-size: 1.5rem;
       }
-    }
-
-    .stats-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .top-performers {
-      grid-template-columns: 1fr;
-    }
-
-    .charts-grid {
-      grid-template-columns: 1fr;
     }
   }
 }

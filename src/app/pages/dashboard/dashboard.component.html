@@ -1,27 +1,35 @@
+<app-loading-spinner [isLoading]="loading" message="Chargement du tableau de bord..."></app-loading-spinner>
+
 <div class="dashboard-page">
-  <div class="header">
-    <h2>Tableau de Bord</h2>
-    <p>Statistiques et aperçu global des missions</p>
+  <div class="hero">
+    <div>
+      <p class="eyebrow">📊 Tableau de bord CARFO</p>
+      <h2>Vue d’ensemble des missions</h2>
+      <p>Statistiques, affectations et missions à venir dans une interface plus claire.</p>
+    </div>
+    <div class="hero-badge" *ngIf="stats">{{ stats.totalMissions }} missions total</div>
   </div>
 
-  <!-- Stats Cards -->
   <div class="stats-grid" *ngIf="stats">
     <p-card class="stat-card">
       <div class="stat-content">
+        <div class="stat-icon">🎯</div>
         <div class="stat-value">{{ stats.totalMissions }}</div>
-        <div class="stat-label">Total Missions</div>
+        <div class="stat-label">Total missions</div>
       </div>
     </p-card>
 
     <p-card class="stat-card">
       <div class="stat-content">
+        <div class="stat-icon">👥</div>
         <div class="stat-value">{{ stats.totalAgents }}</div>
-        <div class="stat-label">Agents Actifs</div>
+        <div class="stat-label">Agents actifs</div>
       </div>
     </p-card>
 
     <p-card class="stat-card">
       <div class="stat-content">
+        <div class="stat-icon">🚗</div>
         <div class="stat-value">{{ stats.totalChauffeurs }}</div>
         <div class="stat-label">Chauffeurs</div>
       </div>
@@ -29,101 +37,90 @@
 
     <p-card class="stat-card">
       <div class="stat-content">
+        <div class="stat-icon">🟢</div>
         <div class="stat-value">{{ stats.vehiculesDisponibles }}</div>
-        <div class="stat-label">Véhicules Disponibles</div>
+        <div class="stat-label">Véhicules disponibles</div>
       </div>
     </p-card>
   </div>
 
-  <!-- Top Performers -->
   <div class="top-performers" *ngIf="stats">
     <p-card class="performer-card">
       <ng-template pTemplate="header">
-        <h3>Chauffeur le Plus Sollicité</h3>
+        <h3>🏅 Chauffeur le plus sollicité</h3>
       </ng-template>
       <div *ngIf="stats.topChauffeur; else noChauffeur" class="performer-content">
         <div class="performer-name">{{ stats.topChauffeur.nom }}</div>
         <div class="performer-stat">{{ stats.topChauffeur.nombreMissions }} missions</div>
       </div>
       <ng-template #noChauffeur>
-        <p>Aucune donnée disponible</p>
+        <p class="empty-state">Aucune donnée disponible</p>
       </ng-template>
     </p-card>
 
     <p-card class="performer-card">
       <ng-template pTemplate="header">
-        <h3>Véhicule le Plus Utilisé</h3>
+        <h3>🚘 Véhicule le plus utilisé</h3>
       </ng-template>
       <div *ngIf="stats.topVehicule; else noVehicule" class="performer-content">
         <div class="performer-name">{{ stats.topVehicule.immatriculation }}</div>
         <div class="performer-stat">{{ stats.topVehicule.nombreMissions }} missions</div>
       </div>
       <ng-template #noVehicule>
-        <p>Aucune donnée disponible</p>
+        <p class="empty-state">Aucune donnée disponible</p>
       </ng-template>
     </p-card>
   </div>
 
-  <!-- Charts -->
   <div class="charts-grid">
     <p-card *ngIf="missionStatusChart">
       <ng-template pTemplate="header">
-        <h3>Missions par Statut</h3>
+        <h3>📈 Missions par statut</h3>
       </ng-template>
-      <p-chart type="doughnut" [data]="missionStatusChart" [options]="{ responsive: true }"></p-chart>
+      <p-chart type="doughnut" [data]="missionStatusChart" [options]="{ responsive: true, maintainAspectRatio: false }"></p-chart>
     </p-card>
 
     <p-card *ngIf="directionsChart">
       <ng-template pTemplate="header">
-        <h3>Top 5 Directions</h3>
+        <h3>📍 Top 5 directions</h3>
       </ng-template>
-      <p-chart type="bar" [data]="directionsChart" [options]="{ responsive: true }"></p-chart>
+      <p-chart type="bar" [data]="directionsChart" [options]="{ responsive: true, maintainAspectRatio: false }"></p-chart>
     </p-card>
   </div>
 
-  <!-- Upcoming Missions -->
-  <p-card *ngIf="upcomingMissions">
+  <p-card *ngIf="upcomingMissions" class="missions-card">
     <ng-template pTemplate="header">
-      <h3>Missions à Venir (7 prochains jours) - {{ upcomingMissions.count }} missions</h3>
+      <h3>🗓️ Missions à venir — {{ upcomingMissions.count }} missions</h3>
     </ng-template>
-    <p-table [value]="upcomingMissions.missions" [paginator]="true" [rows]="10" responsiveLayout="scroll">
-      <ng-container pTemplate="header">
+
+    <p-table [value]="upcomingMissions.missions" [paginator]="true" [rows]="10" responsiveLayout="scroll" styleClass="p-datatable-striped modern-table">
+      <ng-template pTemplate="header">
         <tr>
-          <th>Objet</th>
-          <th>Lieu</th>
-          <th>Début</th>
-          <th>Fin</th>
-          <th>Direction</th>
-          <th>Statut</th>
+          <th scope="col">Objet</th>
+          <th scope="col">Lieu</th>
+          <th scope="col">Début</th>
+          <th scope="col">Fin</th>
+          <th scope="col">Direction</th>
+          <th scope="col">Statut</th>
         </tr>
-      </ng-container>
-      <ng-template #missionTemplate let-mission="rowData">
+      </ng-template>
+
+      <ng-template pTemplate="body" let-mission>
         <tr>
-          <td>{{ mission.objetMission }}</td>
+          <td><strong>{{ mission.objetMission }}</strong></td>
           <td>{{ mission.lieu }}</td>
           <td>{{ mission.dateDebut | date: 'dd/MM/yyyy' }}</td>
           <td>{{ mission.dateFin | date: 'dd/MM/yyyy' }}</td>
           <td>{{ mission.direction?.nomDirection || 'N/A' }}</td>
-          <td>
-            <span [ngClass]="'status-' + mission.statut.toLowerCase()">
-              {{ mission.statut }}
-            </span>
-          </td>
+          <td><span class="status-pill" [ngClass]="'status-' + mission.statut.toLowerCase()">{{ mission.statut }}</span></td>
         </tr>
       </ng-template>
-      <ng-container pTemplate="body">
-        <ng-container *ngTemplateOutlet="missionTemplate; context: { rowData: upcomingMissions.missions[0] }"></ng-container>
-      </ng-container>
+
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="6">Aucune mission à venir</td>
+          <td colspan="6" class="empty-state">Aucune mission à venir</td>
         </tr>
       </ng-template>
     </p-table>
   </p-card>
-
-  <!-- Loading -->
-  <div class="loading-overlay" *ngIf="loading">
-    <p-progressSpinner></p-progressSpinner>
-  </div>
 </div>
