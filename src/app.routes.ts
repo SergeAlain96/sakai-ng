@@ -6,11 +6,21 @@ import { AbsencesComponent } from './app/pages/absences/absences.component';
 import { DirectionsComponent } from './app/pages/directions/directions.component';
 import { AgentsComponent } from './app/pages/agents/agents.component';
 import { VehiculesComponent } from './app/pages/vehicules/vehicules.component';
+import { Landing } from './app/pages/landing/landing';
 import { LoginComponent } from './app/pages/auth/login/login.component';
 import { Register } from './app/pages/auth/register';
 import { authGuard, roleGuard } from './app/core/guards/auth.guard';
 
 export const appRoutes: Routes = [
+    {
+        path: '',
+        component: Landing,
+        pathMatch: 'full'
+    },
+    {
+        path: 'landing',
+        component: Landing
+    },
     {
         path: 'login',
         component: LoginComponent

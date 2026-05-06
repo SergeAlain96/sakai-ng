@@ -1,374 +1,558 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { RippleModule } from 'primeng/ripple';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { TopbarWidget } from './components/topbarwidget.component';
-import { FooterWidget } from './components/footerwidget';
-
-@Component({
-    selector: 'app-landing',
+import { RippleModule } from 'primeng/ripple';
     standalone: true,
     imports: [CommonModule, RouterModule, TopbarWidget, FooterWidget, RippleModule, ButtonModule, CardModule],
     styles: [`
         :host ::ng-deep {
-            .animated-bg {
+    imports: [CommonModule, RouterModule, RippleModule, ButtonModule, CardModule],
                 background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
                 background-size: 400% 400%;
-                animation: gradientShift 15s ease infinite;
-            }
+            --carfo-blue: #2563eb;
+            --carfo-blue-dark: #1d4ed8;
+            --carfo-purple: #7c3aed;
+            --carfo-purple-dark: #5b21b6;
+            --carfo-accent: #ff4d4f;
+            --carfo-ink: #f8fafc;
+            --carfo-muted: rgba(255, 255, 255, 0.78);
 
-            @keyframes gradientShift {
+            .landing-page {
+                min-height: 100vh;
+                background: #f8fafc;
                 0% { background-position: 0% 50%; }
                 50% { background-position: 100% 50%; }
-                100% { background-position: 0% 50%; }
-            }
-
-            .hero-section {
+            .hero-shell {
+                position: relative;
+                min-height: 100vh;
+                overflow: hidden;
+                color: var(--carfo-ink);
+                background:
+                    linear-gradient(90deg, rgba(29, 78, 216, 0.88) 0%, rgba(124, 58, 237, 0.84) 52%, rgba(190, 24, 93, 0.82) 100%),
+                    url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
                 min-height: 100vh;
                 display: flex;
-                align-items: center;
-                justify-content: center;
-                position: relative;
-                overflow: hidden;
-            }
+            .hero-shell::after {
+                content: '';
 
-            .floating-shapes {
+                bottom: 0;
+                left: -5%;
+                right: -5%;
+                height: 140px;
+                display: block;
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #f8fafc 100%);
+                clip-path: ellipse(70% 65% at 50% 100%);
                 position: absolute;
                 width: 100%;
-                height: 100%;
-                overflow: hidden;
+            .topbar {
+                position: sticky;
+                top: 0;
+                z-index: 30;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                padding: 1.25rem 2rem;
+                backdrop-filter: blur(14px);
+                background: rgba(76, 29, 149, 0.24);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.12);
             }
 
-            .shape {
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                text-decoration: none;
+                color: white;
+                font-weight: 800;
+                letter-spacing: 0.08em;
+            }
+
+            .brand-logo {
+                width: 44px;
+                height: 44px;
+                border-radius: 14px;
+                background: rgba(255, 255, 255, 0.18);
+                display: grid;
+                place-items: center;
+                border: 1px solid rgba(255, 255, 255, 0.18);
+                overflow: hidden;
+                box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+            }
+
+            .brand-logo img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                padding: 0.2rem;
+                background: white;
+            }
+
+            .nav-links {
+                overflow: hidden;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                align-items: center;
+                gap: 2rem;
+                color: rgba(255, 255, 255, 0.78);
+                font-weight: 600;
                 position: absolute;
                 opacity: 0.1;
-                border-radius: 50%;
-            }
-
-            .shape1 {
+            .nav-links a {
+                color: inherit;
+                text-decoration: none;
+                transition: color 0.25s ease, transform 0.25s ease;
                 width: 300px;
                 height: 300px;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                top: -150px;
-                left: -150px;
-                animation: float1 8s ease-in-out infinite;
-            }
-
-            .shape2 {
+            .nav-links a:hover {
+                color: white;
+                transform: translateY(-1px);
                 width: 250px;
                 height: 250px;
-                background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-                bottom: -125px;
-                right: -125px;
-                animation: float2 10s ease-in-out infinite;
-            }
-
-            .shape3 {
+            .topbar-cta {
+                background: linear-gradient(135deg, var(--carfo-accent), #ff7a59);
+                color: white;
+                border: none;
+                padding: 0.95rem 1.5rem;
+                border-radius: 9999px;
+                font-weight: 700;
+                box-shadow: 0 16px 28px rgba(255, 77, 79, 0.28);
                 width: 200px;
                 height: 200px;
-                background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-                top: 50%;
-                right: 10%;
-                animation: float3 12s ease-in-out infinite;
-            }
-
-            @keyframes float1 {
+            .hero-section {
+                min-height: calc(100vh - 88px);
+                display: grid;
+                place-items: center;
+                padding: 4rem 1.5rem 5rem;
+                position: relative;
                 0%, 100% { transform: translate(0, 0) rotate(0deg); }
                 50% { transform: translate(30px, -30px) rotate(180deg); }
-            }
-
-            @keyframes float2 {
+            .hero-card {
+                width: min(920px, 100%);
+                text-align: center;
+                padding: 4rem 2rem 3rem;
+                border-radius: 2rem;
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.16);
+                box-shadow: 0 28px 80px rgba(17, 24, 39, 0.2);
+                backdrop-filter: blur(14px);
                 0%, 100% { transform: translate(0, 0) rotate(0deg); }
                 50% { transform: translate(-40px, 40px) rotate(180deg); }
-            }
-
-            @keyframes float3 {
+            .eyebrow {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.5rem 0.9rem;
+                border-radius: 9999px;
+                background: rgba(255, 255, 255, 0.14);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                color: rgba(255, 255, 255, 0.9);
+                font-weight: 700;
+                letter-spacing: 0.03em;
+                margin-bottom: 1.5rem;
                 0%, 100% { transform: translate(0, 0); }
                 50% { transform: translate(-20px, 20px); }
-            }
-
-            .hero-content {
+            .hero-title {
+                margin: 0 auto;
+                max-width: 11ch;
+                font-size: clamp(2.7rem, 6vw, 4.8rem);
+                line-height: 1.04;
+                font-weight: 800;
+                letter-spacing: -0.04em;
+                color: white;
+                text-wrap: balance;
                 position: relative;
                 z-index: 10;
-                text-align: center;
-                animation: slideUp 1.2s ease-out;
-            }
-
-            @keyframes slideUp {
+            .hero-subtitle {
+                margin: 1.25rem auto 0;
+                max-width: 760px;
+                font-size: 1.15rem;
+                line-height: 1.75;
+                color: var(--carfo-muted);
                 from {
                     opacity: 0;
-                    transform: translateY(40px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            .hero-title {
-                font-size: 4rem;
-                font-weight: 800;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-                animation: fadeInTitle 1.5s ease-out;
-                margin-bottom: 1.5rem;
-            }
-
-            @keyframes fadeInTitle {
-                from { opacity: 0; transform: translateY(20px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-
-            .hero-subtitle {
-                font-size: 1.25rem;
-                color: #64748b;
-                max-width: 600px;
-                margin: 0 auto 3rem;
-                animation: fadeInSubtitle 1.8s ease-out;
-            }
-
-            @keyframes fadeInSubtitle {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
-
-            .cta-buttons {
+            .hero-actions {
+                margin-top: 2rem;
                 display: flex;
-                gap: 1rem;
                 justify-content: center;
+                gap: 1rem;
                 flex-wrap: wrap;
-                animation: fadeInButtons 2s ease-out;
             }
 
-            @keyframes fadeInButtons {
-                from { opacity: 0; transform: scale(0.9); }
-                to { opacity: 1; transform: scale(1); }
-            }
-
-            .features-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 2rem;
-                margin-top: 4rem;
-                animation: fadeInGrid 2.2s ease-out;
-            }
-
-            @keyframes fadeInGrid {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
-
-            .feature-card {
-                padding: 2rem;
-                border-radius: 1rem;
-                background: white;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                border: 1px solid rgba(226, 232, 240, 0.5);
-            }
-
-            .feature-card:hover {
-                transform: translateY(-8px);
-                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-                border-color: #667eea;
-            }
-
-            .feature-icon {
-                font-size: 2.5rem;
-                margin-bottom: 1rem;
-                animation: pulseIcon 2s ease-in-out infinite;
-            }
-
-            @keyframes pulseIcon {
-                0%, 100% { transform: scale(1); }
-                50% { transform: scale(1.1); }
-            }
-
-            .feature-title {
-                font-size: 1.25rem;
+            .primary-button,
+            .secondary-button {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.55rem;
+                padding: 0.95rem 1.6rem;
+                border-radius: 9999px;
                 font-weight: 700;
-                color: #1e293b;
-                margin-bottom: 0.75rem;
+                text-decoration: none;
+                transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
             }
 
-            .feature-description {
-                color: #64748b;
-                line-height: 1.6;
+            .primary-button {
+                background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+                color: var(--carfo-purple-dark);
+                box-shadow: 0 18px 36px rgba(255, 255, 255, 0.18);
             }
 
-            .stats-section {
+            .secondary-button {
+                color: white;
+                border: 1px solid rgba(255, 255, 255, 0.32);
+                background: rgba(255, 255, 255, 0.08);
+            }
+
+            .primary-button:hover,
+            .secondary-button:hover,
+            .play-button:hover,
+            .topbar-cta:hover {
+                transform: translateY(-2px);
+            }
+
+            .play-button {
+                margin: 2rem auto 0;
+                width: 82px;
+                height: 82px;
+                border-radius: 50%;
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 2rem;
-                margin: 4rem 0;
-                text-align: center;
+                place-items: center;
+                border: 3px solid rgba(255, 255, 255, 0.32);
+                background: rgba(255, 77, 79, 0.2);
+                color: white;
+                box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+                cursor: pointer;
             }
 
-            .stat-item {
-                padding: 2rem;
+            .play-button span {
+                font-size: 1.25rem;
+                transform: translateX(2px);
             }
 
-            .stat-number {
-                font-size: 3rem;
-                font-weight: 800;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
+            .wave-bottom {
+                position: absolute;
+                bottom: -1px;
+                left: 0;
+                width: 100%;
+                height: 140px;
+                background: #f8fafc;
+                border-top-left-radius: 60% 100%;
+                border-top-right-radius: 60% 100%;
             }
 
-            .stat-label {
-                color: #64748b;
-                margin-top: 0.5rem;
-                font-size: 0.95rem;
+            .floating-panel {
+                position: absolute;
+                left: 1rem;
+                top: 50%;
+                transform: translateY(-50%);
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+                z-index: 4;
             }
 
-            .section {
-                padding: 5rem 2rem;
+            .floating-chip {
+                width: 52px;
+                height: 52px;
+                display: grid;
+                place-items: center;
+                border-radius: 0.75rem;
+                color: white;
+                background: rgba(15, 23, 42, 0.82);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+            }
+
+            .section-wrap {
+                padding: 4rem 1.5rem 5rem;
                 max-width: 1200px;
                 margin: 0 auto;
             }
 
-            .gradient-button {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
-                padding: 0.75rem 2rem;
-                border: none;
-                border-radius: 0.5rem;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                text-decoration: none;
-                display: inline-block;
+            .section-title {
+                text-align: center;
+                margin-bottom: 2rem;
             }
 
-            .gradient-button:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            .section-title h2 {
+                margin: 0;
+                font-size: clamp(1.8rem, 3vw, 2.5rem);
+                color: #0f172a;
             }
 
-            .gradient-button-secondary {
+            .section-title p {
+                margin: 0.75rem 0 0;
+                color: #64748b;
+            }
+
+            .stats-strip {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+
+            .stat-card {
+                text-align: center;
+                padding: 1.5rem;
+                border-radius: 1.25rem;
                 background: white;
-                color: #667eea;
-                padding: 0.75rem 2rem;
-                border: 2px solid #667eea;
-                border-radius: 0.5rem;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                text-decoration: none;
-                display: inline-block;
+                border: 1px solid rgba(37, 99, 235, 0.08);
+                box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
             }
 
-            .gradient-button-secondary:hover {
-                background: #f0f4ff;
-                transform: translateY(-3px);
+            .stat-value {
+                font-size: 2rem;
+                font-weight: 800;
+                color: var(--carfo-purple-dark);
             }
 
-            .dark .feature-card {
-                background: #1e293b;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-                border-color: rgba(51, 65, 85, 0.5);
+            .stat-label {
+                color: #64748b;
+                margin-top: 0.35rem;
+                font-size: 0.95rem;
             }
 
-            .dark .hero-subtitle {
-                color: #cbd5e1;
+            .feature-grid {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 1rem;
+                margin-top: 2rem;
             }
 
-            .dark .feature-title {
-                color: #f1f5f9;
+            .feature-card {
+                padding: 1.5rem;
+                border-radius: 1.25rem;
+                background: white;
+                border: 1px solid rgba(37, 99, 235, 0.08);
+                box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+                transition: transform 0.25s ease, box-shadow 0.25s ease;
             }
 
-            .dark .feature-description {
-                color: #cbd5e1;
+            .feature-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 18px 34px rgba(15, 23, 42, 0.12);
             }
 
-            .dark .stat-label {
-                color: #cbd5e1;
+            .feature-icon {
+                width: 54px;
+                height: 54px;
+                border-radius: 1rem;
+                display: grid;
+                place-items: center;
+                background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(124, 58, 237, 0.12));
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
             }
-        }
-    `],
+
+            .feature-title {
+                margin: 0 0 0.5rem;
+                font-size: 1.1rem;
+                color: #0f172a;
+            }
+
+            .feature-description {
+                margin: 0;
+                color: #64748b;
+                line-height: 1.7;
+            }
+
+            .cta-band {
+                margin-top: 3rem;
+                padding: 2rem;
+                border-radius: 1.5rem;
+                background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(124, 58, 237, 0.1));
+                border: 1px solid rgba(37, 99, 235, 0.1);
+                text-align: center;
+            }
+
+            .cta-band p {
+                margin: 0.75rem auto 1.5rem;
+                max-width: 760px;
+                color: #475569;
+            }
+
+            .cta-band .primary-button {
+                background: linear-gradient(135deg, var(--carfo-blue), var(--carfo-purple));
+                color: white;
+            }
+
+            @media (max-width: 1024px) {
+                .nav-links {
+                    display: none;
+                }
+
+                .stats-strip,
+                .feature-grid {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+            }
+
+            @media (max-width: 768px) {
+                .topbar {
+                    padding: 1rem;
+                }
+
+                .hero-shell {
+                    background-position: center top;
+                }
+
+                .hero-card {
+                    padding: 2.5rem 1.25rem 2rem;
+                    border-radius: 1.5rem;
+                }
+
+                .hero-title {
+                    font-size: clamp(2.2rem, 11vw, 3.25rem);
+                }
+
+                .hero-subtitle {
+                    font-size: 1rem;
+                }
+
+                .floating-panel {
+                    display: none;
+                }
+
+                .stats-strip,
+                .feature-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .section-wrap {
+                    padding: 3rem 1rem 4rem;
+                }
+            .hero-title {
+                font-size: 4rem;
     template: `
         <div class="bg-white dark:bg-slate-900 min-h-screen">
             <!-- Header -->
-            <topbar-widget class="py-6 px-6 mx-0 md:mx-12 lg:mx-20 lg:px-20 flex items-center justify-between sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-sm" />
+        <div class="landing-page">
+            <header class="hero-shell" id="home">
+                <div class="topbar">
+                    <a class="brand" routerLink="/landing">
+                        <span class="brand-logo">
+                            <img src="assets/logo-carfo.png" alt="CARFO" />
+                        </span>
+                        <span>CARFO</span>
+                    </a>
 
-            <!-- Hero Section -->
-            <div class="hero-section animated-bg">
-                <div class="floating-shapes">
-                    <div class="shape shape1"></div>
-                    <div class="shape shape2"></div>
-                    <div class="shape shape3"></div>
+                    <nav class="nav-links" aria-label="Navigation principale">
+                        <a href="#home">Maison</a>
+                        <a href="#services">Services</a>
+                        <a href="#features">Caractéristiques</a>
+                        <a href="#pricing">Tarification</a>
+                        <a href="#team">Équipe</a>
+                        <a href="#blog">Blog</a>
+                        <a href="#contact">Contact</a>
+                    </nav>
+
+                    <button class="topbar-cta" routerLink="/login" pRipple>Essayez-le gratuitement</button>
                 </div>
-                <div class="hero-content px-6">
-                    <h1 class="hero-title">Gestion Intelligente des Missions</h1>
-                    <p class="hero-subtitle">
-                        Optimisez la planification et le suivi de vos missions avec un système complet et intuitif
-                    </p>
-                    <div class="cta-buttons">
-                        <button class="gradient-button" routerLink="/auth/login" pRipple>
-                            Démarrer
-                        </button>
-                        <button class="gradient-button-secondary" (click)="scrollToFeatures()" pRipple>
-                            En savoir plus
+
+                <div class="hero-section">
+                    <div class="floating-panel" aria-hidden="true">
+                        <div class="floating-chip">⚙</div>
+                        <div class="floating-chip">☼</div>
+                    </div>
+
+                    <div class="hero-card">
+                        <div class="eyebrow">🚀 Gestion des missions, agents et véhicules</div>
+                        <h1 class="hero-title">Nous aidons les équipes à lancer leurs missions</h1>
+                        <p class="hero-subtitle">
+                            Une plateforme moderne pour planifier, suivre et valider les missions de bout en bout,
+                            avec l’identité visuelle CARFO et une expérience simple.
+                        </p>
+
+                        <div class="hero-actions">
+                            <a class="primary-button" routerLink="/login" pRipple>Commencer</a>
+                            <a class="secondary-button" (click)="scrollToSection('services')" pRipple>Découvrir la plateforme</a>
+                        </div>
+
+                        <button class="play-button" type="button" (click)="scrollToSection('features')" aria-label="Voir les fonctionnalités">
+                            <span>▶</span>
                         </button>
                     </div>
                 </div>
-            </div>
 
-            <!-- Stats Section -->
-            <div class="section bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-700">
-                <div class="stats-section">
-                    <div class="stat-item" *ngFor="let stat of stats">
-                        <div class="stat-number">{{ stat.number }}</div>
+                <div class="wave-bottom"></div>
+            </header>
+
+            <section class="section-wrap" id="services">
+                <div class="section-title">
+                    <h2>Services essentiels</h2>
+                    <p>Tout ce qu’il faut pour suivre vos activités au quotidien.</p>
+                </div>
+                <div class="stats-strip">
+                    <div class="stat-card" *ngFor="let stat of stats">
+                        <div class="stat-value">{{ stat.number }}</div>
                         <div class="stat-label">{{ stat.label }}</div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Features Section -->
-            <div class="section" id="featuresSection">
-                <h2 class="text-4xl font-bold text-center mb-2 dark:text-white">Fonctionnalités Principales</h2>
-                <p class="text-center text-gray-600 dark:text-gray-400 mb-12">Découvrez les outils puissants conçus pour simplifier votre travail</p>
-                <div class="features-grid">
-                    <div class="feature-card" *ngFor="let feature of features">
+            <section class="section-wrap" id="features">
+                <div class="section-title">
+                    <h2>Caractéristiques principales</h2>
+                    <p>Une interface claire, rapide et orientée productivité.</p>
+                </div>
+                <div class="feature-grid">
+                    <article class="feature-card" *ngFor="let feature of features">
                         <div class="feature-icon">{{ feature.icon }}</div>
                         <h3 class="feature-title">{{ feature.title }}</h3>
                         <p class="feature-description">{{ feature.description }}</p>
-                    </div>
+                    </article>
                 </div>
-            </div>
+            </section>
 
-            <!-- Call to Action Section -->
-            <div class="section bg-gradient-to-r from-purple-100 to-blue-100 dark:from-slate-800 dark:to-slate-700 text-center rounded-2xl">
-                <h2 class="text-3xl font-bold mb-4 dark:text-white">Prêt à commencer ?</h2>
-                <p class="text-gray-700 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-                    Rejoignez les entreprises qui font confiance à notre plateforme pour gérer leurs missions efficacement.
-                </p>
-                <button class="gradient-button text-lg" routerLink="/auth/login" pRipple>
-                    Se connecter maintenant
-                </button>
-            </div>
+            <section class="section-wrap" id="pricing">
+                <div class="cta-band">
+                    <div class="section-title">
+                        <h2>Prêt à moderniser votre gestion ?</h2>
+                    </div>
+                    <p>
+                        Rejoignez une interface plus lisible, plus élégante et alignée sur les couleurs du logo CARFO.
+                    </p>
+                    <a class="primary-button" routerLink="/login" pRipple>Se connecter</a>
+                </div>
+            </section>
 
-            <!-- Footer -->
-            <footer-widget />
-        </div>
-    `
+            <section class="section-wrap" id="team">
+                <div class="section-title">
+                    <h2>Équipe & suivi</h2>
+                    <p>Une vue d’ensemble pour vos équipes et vos prises de décision.</p>
+                </div>
+            </section>
+
+            <section class="section-wrap" id="blog">
+                <div class="section-title">
+                    <h2>Blog</h2>
+                    <p>Conseils, annonces et bonnes pratiques à venir.</p>
+                </div>
+            </section>
+
+            <section class="section-wrap" id="contact">
+                <div class="section-title">
+                    <h2>Contact</h2>
+                    <p>Besoin d’un accès ou d’une démonstration ?</p>
+                </div>
+            </section>
 })
 export class Landing {
     featuresSection: any;
 
-    stats = [
-        { number: '500+', label: 'Missions gérées' },
         { number: '98%', label: 'Taux de satisfaction' },
-        { number: '24/7', label: 'Support disponible' },
-        { number: '50+', label: 'Entreprises partenaires' }
-    ];
-
+        { number: '500+', label: 'Missions gérées' },
+        { number: '98%', label: 'Satisfaction' },
+        { number: '24/7', label: 'Support' },
+        { number: '50+', label: 'Partenaires' }
     features = [
         {
             icon: '📋',
@@ -402,8 +586,8 @@ export class Landing {
         }
     ];
 
-    scrollToFeatures() {
-        const element = document.querySelector('#featuresSection') as HTMLElement;
+    scrollToSection(id: string) {
+        const element = document.getElementById(id);
         element?.scrollIntoView({ behavior: 'smooth' });
     }
 }
