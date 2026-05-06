@@ -10,6 +10,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TagModule } from 'primeng/tag';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { LoadingSpinnerComponent } from '../../core/components/loading-spinner.component';
 import { AgentService, Agent, AgentUpdateRequest } from '../../core/services/agent.service';
 import { DirectionService, Direction } from '../../core/services/direction.service';
 
@@ -27,18 +28,20 @@ import { DirectionService, Direction } from '../../core/services/direction.servi
     ToastModule,
     ConfirmDialogModule,
     CheckboxModule,
-    TagModule
+    TagModule,
+    LoadingSpinnerComponent
   ],
   providers: [MessageService, ConfirmationService],
   template: `
-    <div class="carfo-container">
+    <app-loading-spinner [isLoading]="loading" message="Chargement des agents..."></app-loading-spinner>
+    <div class="carfo-container" [@fadeIn]>
       <div class="header-section">
-        <h2>Gestion des Agents</h2>
+        <h2>👥 Gestion des Agents</h2>
         <p-button 
           icon="pi pi-plus" 
-          label="Nouvel Agent" 
+          label="+ Nouvel Agent" 
           (click)="showAddDialog()"
-          [loading]="loading">
+          severity="success">
         </p-button>
       </div>
 
@@ -111,17 +114,18 @@ import { DirectionService, Direction } from '../../core/services/direction.servi
         </ng-template>
         <ng-template pTemplate="emptymessage">
           <tr>
-            <td colspan="7" class="text-center p-4">Aucun agent trouvé</td>
+            <td colspan="7" class="empty-message">📭 Aucun agent trouvé</td>
           </tr>
         </ng-template>
       </p-table>
 
       <p-dialog 
         [(visible)]="showDialog" 
-        [header]="isEdit ? 'Modifier Agent' : 'Nouvel Agent'"
+        [header]="isEdit ? '✏️ Modifier Agent' : '✨ Nouvel Agent'"
         [modal]="true" 
         [style]="{width: '500px'}"
         [closeOnEscape]="true"
+        [maximizable]="true"
         (onHide)="resetForm()">
         <form [formGroup]="agentForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
@@ -258,13 +262,35 @@ import { DirectionService, Direction } from '../../core/services/direction.servi
       justify-content: space-between;
       align-items: center;
       margin-bottom: 2rem;
+      animation: slideUp 0.6s ease-out;
     }
 
     .header-section h2 {
       margin: 0;
-      color: var(--carfo-primary);
-      font-size: 1.5rem;
-      font-weight: 600;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 1.75rem;
+      font-weight: 800;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .empty-message {
+      text-align: center;
+      padding: 2rem;
+      color: #64748b;
+      font-size: 1.1rem;
     }
 
     .form-group {
