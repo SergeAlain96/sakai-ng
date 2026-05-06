@@ -13,6 +13,7 @@ import { RippleModule } from 'primeng/ripple';
 import { RouterModule } from '@angular/router';
 import { Absence, AbsenceCreateRequest, AbsenceService, StatutAbsence } from '../../core/services/absence.service';
 import { Agent, AgentService } from '../../core/services/agent.service';
+import { LoadingSpinnerComponent } from '../../core/components/loading-spinner.component';
 
 @Component({
   selector: 'app-absences',
@@ -28,19 +29,21 @@ import { Agent, AgentService } from '../../core/services/agent.service';
     RippleModule,
     SelectModule,
     TableModule,
-    ToastModule
+    ToastModule,
+    LoadingSpinnerComponent
   ],
   providers: [MessageService],
   template: `
     <p-toast></p-toast>
+    <app-loading-spinner [isLoading]="loading" message="Chargement des absences..."></app-loading-spinner>
 
     <div class="absences-page">
       <div class="header">
         <div>
-          <h2>Gestion des absences</h2>
+          <h2>📅 Gestion des Absences</h2>
           <p>Déclaration, validation et suivi des absences des agents.</p>
         </div>
-        <p-button label="Nouvelle absence" icon="pi pi-plus" (click)="openCreateDialog()"></p-button>
+        <p-button label="📋 Nouvelle absence" severity="success" icon="pi pi-plus" (click)="openCreateDialog()"></p-button>
       </div>
 
       <div class="card filters">
@@ -69,87 +72,95 @@ import { Agent, AgentService } from '../../core/services/agent.service';
           </div>
         </div>
         <div class="actions">
-          <p-button label="Rechercher" icon="pi pi-search" (click)="loadAbsences()"></p-button>
-          <p-button label="Réinitialiser" severity="secondary" outlined (click)="resetFilters()"></p-button>
+          <p-button label="🔍 Rechercher" icon="pi pi-search" (click)="loadAbsences()"></p-button>
+          <p-button label="↺ Réinitialiser" severity="secondary" outlined (click)="resetFilters()"></p-button>
         </div>
       </div>
 
       <p-table [value]="absences" [loading]="loading" [paginator]="true" [rows]="10" responsiveLayout="scroll" styleClass="p-datatable-striped card">
         <ng-template pTemplate="header">
           <tr>
-            <th>Agent</th>
-            <th>Début</th>
-            <th>Fin</th>
-            <th>Raison</th>
-            <th>Statut</th>
+            <th pSortableColumn="agent.prenom">Agent <p-sortIcon field="agent.prenom"></p-sortIcon></th>
+            <th pSortableColumn="dateDebut">Début <p-sortIcon field="dateDebut"></p-sortIcon></th>
+            <th pSortableColumn="dateFin">Fin <p-sortIcon field="dateFin"></p-sortIcon></th>
+            <th>📝 Raison</th>
+            <th pSortableColumn="statut">Statut <p-sortIcon field="statut"></p-sortIcon></th>
             <th style="width: 250px">Actions</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-absence>
-          <tr>
-            <td>{{ absence.agent?.prenom }} {{ absence.agent?.nom }}</td>
-            <td>{{ absence.dateDebut | date:'yyyy-MM-dd' }}</td>
-            <td>{{ absence.dateFin | date:'yyyy-MM-dd' }}</td>
+          <tr class="table-row">
+            <td><strong>{{ absence.agent?.prenom }} {{ absence.agent?.nom }}</strong></td>
+            <td><span class="date-badge">📅 {{ absence.dateDebut | date:'dd/MM/yyyy' }}</span></td>
+            <td><span class="date-badge">📅 {{ absence.dateFin | date:'dd/MM/yyyy' }}</span></td>
             <td>{{ absence.raison }}</td>
             <td><span class="status-badge" [ngClass]="'status-' + absence.statut.toLowerCase()">{{ absence.statut }}</span></td>
             <td class="row-actions">
-              <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" severity="secondary" (click)="openEditDialog(absence)"></p-button>
-              <p-button icon="pi pi-check" [rounded]="true" [text]="true" severity="success" (click)="approveAbsence(absence.id!)"></p-button>
-              <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="warn" (click)="rejectAbsence(absence.id!)"></p-button>
-              <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger" (click)="deleteAbsence(absence.id!)"></p-button>
+              <p-button icon="pi pi-pencil" pTooltip="✏️ Modifier" tooltipPosition="top" [rounded]="true" [text]="true" severity="secondary" (click)="openEditDialog(absence)"></p-button>
+              <p-button icon="pi pi-check" pTooltip="✅ Approuver" tooltipPosition="top" [rounded]="true" [text]="true" severity="success" (click)="approveAbsence(absence.id!)"></p-button>
+              <p-button icon="pi pi-times" pTooltip="❌ Rejeter" tooltipPosition="top" [rounded]="true" [text]="true" severity="warn" (click)="rejectAbsence(absence.id!)"></p-button>
+              <p-button icon="pi pi-trash" pTooltip="🗑️ Supprimer" tooltipPosition="top" [rounded]="true" [text]="true" severity="danger" (click)="deleteAbsence(absence.id!)"></p-button>
             </td>
           </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
-          <tr><td colspan="6" class="empty">Aucune absence trouvée</td></tr>
+          <tr><td colspan="6" class="empty-message">📭 Aucune absence trouvée</td></tr>
         </ng-template>
       </p-table>
     </div>
 
-    <p-dialog [(visible)]="showDialog" [modal]="true" [style]="{ width: '760px' }" [header]="isEdit ? 'Modifier absence' : 'Nouvelle absence'" (onHide)="closeDialog()">
+    <p-dialog [(visible)]="showDialog" [modal]="true" [maximizable]="true" [style]="{ width: '760px' }" [header]="isEdit ? '✏️ Modifier Absence' : '📋 Nouvelle Absence'" (onHide)="closeDialog()">
       <div class="dialog-grid">
         <div class="full">
           <label>Agent</label>
           <p-select [options]="agentsOptions" optionLabel="displayName" optionValue="id" [(ngModel)]="form.idAgent" placeholder="Sélectionner un agent"></p-select>
         </div>
         <div>
-          <label>Date de début</label>
+          <label>📅 Date de début</label>
           <p-datepicker [(ngModel)]="form.dateDebut" [showIcon]="true"></p-datepicker>
         </div>
         <div>
-          <label>Date de fin</label>
+          <label>📅 Date de fin</label>
           <p-datepicker [(ngModel)]="form.dateFin" [showIcon]="true"></p-datepicker>
         </div>
         <div class="full">
-          <label>Raison</label>
+          <label>📝 Raison</label>
           <input pInputText [(ngModel)]="form.raison" class="w-full" placeholder="Raison de l'absence" />
         </div>
       </div>
       <div class="dialog-actions">
         <p-button label="Annuler" severity="secondary" outlined (click)="closeDialog()"></p-button>
-        <p-button [label]="isEdit ? 'Mettre à jour' : 'Déclarer'" (click)="saveAbsence()" [loading]="saving"></p-button>
+        <p-button [label]="isEdit ? '✅ Mettre à jour' : '📋 Déclarer'" (click)="saveAbsence()" [loading]="saving"></p-button>
       </div>
     </p-dialog>
   `,
   styles: [`
-    .absences-page { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .absences-page { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; animation: slideUp 0.6s ease-out; }
     .header { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; }
-    .header h2 { margin:0; }
+    .header h2 { margin:0; font-size:1.875rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .header p { margin:.25rem 0 0; color: var(--text-color-secondary, #666); }
     .card { background: var(--surface-card, #fff); border-radius: 1rem; padding: 1rem; box-shadow: 0 8px 30px rgba(0,0,0,.06); }
     .filters .grid, .dialog-grid { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
     .filters label, .dialog-grid label { display:block; margin-bottom:.4rem; font-weight:600; }
     .actions, .dialog-actions { display:flex; gap:.75rem; justify-content:flex-end; margin-top:1rem; }
     .row-actions { display:flex; gap:.25rem; }
-    .empty { text-align:center; padding: 1.5rem; }
+    .empty-message { text-align:center; padding: 2rem 1.5rem; color: var(--text-color-secondary); font-size: 1rem; }
     .full { grid-column: 1 / -1; }
+    .table-row:hover { background-color: var(--highlight-bg, #f8f9fa); }
+    .date-badge { display:inline-flex; align-items:center; padding:.35rem .65rem; background:#f5f3ff; color:#764ba2; border-radius:.5rem; font-size:.875rem; font-weight:500; }
     .status-badge { display:inline-flex; padding:.35rem .65rem; border-radius:9999px; font-size:.78rem; font-weight:700; }
     .status-en_attente, .status-planifiee { background:#fef3c7; color:#92400e; }
-    .status-approuve, .status-terminee { background:#dcfce7; color:#166534; }
+    .status-approuve, .status-terminee, .status-completee { background:#dcfce7; color:#166534; }
     .status-rejetee, .status-annulee { background:#fee2e2; color:#991b1b; }
+    .status-en_cours { background:#dbeafe; color:#1e40af; }
     @media (max-width: 768px) {
       .filters .grid, .dialog-grid { grid-template-columns: 1fr; }
       .header { flex-direction: column; }
+      .absences-page { padding: 1rem; }
     }
   `]
 })
