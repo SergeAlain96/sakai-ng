@@ -1,8 +1,5 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+export { LandingHomeComponent as Landing } from './landing-home.component';
+/*
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -545,49 +542,4 @@ import { RippleModule } from 'primeng/ripple';
                 </div>
             </section>
 })
-export class Landing {
-    featuresSection: any;
-
-        { number: '98%', label: 'Taux de satisfaction' },
-        { number: '500+', label: 'Missions gérées' },
-        { number: '98%', label: 'Satisfaction' },
-        { number: '24/7', label: 'Support' },
-        { number: '50+', label: 'Partenaires' }
-    features = [
-        {
-            icon: '📋',
-            title: 'Gestion des Missions',
-            description: 'Créez, planifiez et suivez vos missions en temps réel avec un système intuitif et performant.'
-        },
-        {
-            icon: '🚗',
-            title: 'Gestion des Véhicules',
-            description: 'Inventoriez et maintenez vos véhicules. Suivez leur disponibilité et leur entretien.'
-        },
-        {
-            icon: '👥',
-            title: 'Gestion des Agents',
-            description: 'Gérez vos équipes, leurs compétences et leurs affectations aux missions.'
-        },
-        {
-            icon: '📊',
-            title: 'Tableaux de Bord',
-            description: 'Visualisez les statistiques clés et prenez des décisions basées sur les données.'
-        },
-        {
-            icon: '🗓️',
-            title: 'Gestion des Absences',
-            description: 'Suivez les congés et absences de votre équipe pour une meilleure planification.'
-        },
-        {
-            icon: '🔒',
-            title: 'Sécurité Garantie',
-            description: 'Authentification sécurisée et gestion des permissions pour protéger vos données.'
-        }
-    ];
-
-    scrollToSection(id: string) {
-        const element = document.getElementById(id);
-        element?.scrollIntoView({ behavior: 'smooth' });
-    }
-}
+*/
