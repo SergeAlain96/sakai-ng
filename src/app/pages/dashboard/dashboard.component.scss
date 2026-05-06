@@ -1,0 +1,170 @@
+.dashboard-page {
+  padding: 2rem;
+
+  .header {
+    margin-bottom: 2rem;
+
+    h2 {
+      margin: 0 0 0.5rem 0;
+      font-size: 2rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0;
+      color: #666;
+    }
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+
+    .stat-card {
+      :deep(.p-card-body) {
+        padding: 2rem;
+      }
+
+      .stat-content {
+        text-align: center;
+
+        .stat-value {
+          font-size: 2.5rem;
+          font-weight: bold;
+          color: #673ab7;
+        }
+
+        .stat-label {
+          margin-top: 0.5rem;
+          color: #999;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+
+  .top-performers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+
+    .performer-card {
+      :deep(.p-card-header) {
+        background: #f5f5f5;
+        padding: 1rem;
+
+        h3 {
+          margin: 0;
+          font-size: 1rem;
+          font-weight: 600;
+        }
+      }
+
+      .performer-content {
+        padding: 1.5rem;
+        text-align: center;
+
+        .performer-name {
+          font-size: 1.5rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+        }
+
+        .performer-stat {
+          color: #673ab7;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+
+    p-card {
+      :deep(.p-card-header) {
+        background: #f5f5f5;
+        padding: 1rem;
+
+        h3 {
+          margin: 0;
+          font-size: 1rem;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  .status-prevue {
+    background: #fff3cd;
+    color: #856404;
+    padding: 0.25rem 0.75rem;
+    border-radius: 3px;
+    font-size: 0.85rem;
+  }
+
+  .status-initiee {
+    background: #d1ecf1;
+    color: #0c5460;
+    padding: 0.25rem 0.75rem;
+    border-radius: 3px;
+    font-size: 0.85rem;
+  }
+
+  .status-annulee {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 0.25rem 0.75rem;
+    border-radius: 3px;
+    font-size: 0.85rem;
+  }
+
+  .status-cloturee {
+    background: #d4edda;
+    color: #155724;
+    padding: 0.25rem 0.75rem;
+    border-radius: 3px;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    .header {
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .top-performers {
+      grid-template-columns: 1fr;
+    }
+
+    .charts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}
